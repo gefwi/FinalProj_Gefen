@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/ajaxCalls.js"></script>
+    <script src="../Scripts/ajaxCallsWithKey.js"></script>
+
+    <script>
+
+        // A $( document ).ready() block.
+        $(document).ready(function () {
+
+            $("#postBTN").click(postFlights);
+            $("#deleteBTN").click(deleteFlight);
+            $("#readBTN").click(readFlightsCheaperThan);
+        });
+
+        function readFlightsCheaperThan() {
+            let maxPrice = $("#maxPriceTB").val();
+            let api = "../api/Dogs?maxPrice=" + maxPrice;
+            ajaxCall("GET", api, "", getSuccess, getError)
+        }
+
+
+        function getSuccess(flights) {
+            console.log(flights);
+        }
+
+        function getError(err) {
+            console.log(err);
+        }
+
+
+        function postFlights() {
+            console.log("in postStudent");
+            // get the values from the input fields
+            let _from = $("#fromTB").val();
+            let _to = $("#toTB").val();
+            let _price = $("#priceTB").val();
+        //    let _id = $("#idTB").val();
+
+            let flight = { // Note that the field names must match the C# class properties
+                Breed: _from,
+                Name: _to,
+                Price: _price
+            }
+
+            ajaxCall("POST", "../api/Dogs", JSON.stringify(flight), postSuccess, postError)
+
+        }
+
+
+        function postSuccess(data) {
+            console.log(data)
+        }
+
+        function postError(err) {
+            console.log(err.responseText)
+        }
+
+        function deleteFlight() {
+            let id = $("#idTB").val();
+            let url = "../api/Dogs/" + id;
+            ajaxCall("DELETE", url, "", deleteSuccess, deleteError);
+        }
+
+        function deleteSuccess(data) {
+            console.log(data);
+        }
+
+        function deleteError(err) {
+            console.log(err);
+        }
+
+
+    </script>
+
+</head>
+<body>
+
+    <h3>Flight Class Ex</h3>
+
+    <table>
+
+        <tr>
+            <td>Breed:</td>
+            <td><input type="text" id="fromTB" /></td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td><input type="text" id="toTB" /></td>
+        </tr>
+        <tr>
+            <td>price</td>
+            <td><input type="number" id="priceTB" /></td>
+        </tr>
+
+        <tr>
+            <td><button id="postBTN">POST</button></td>
+        </tr>
+
+        <tr>
+            <td>id: </td>
+            <td><input type="number" id="idTB" /></td>
+            <td><button id="deleteBTN">Delete by Id</button></td>
+        </tr>
+        <tr>
+            <td>read flights cheaper than: </td>
+            <td><input type="number" id="maxPriceTB" /></td>
+            <td><button id="readBTN">Read</button></td>
+        </tr>
+    </table>
+
+    <div id="ph">
+
+    </div>
+
+
+</body>
+</html>
