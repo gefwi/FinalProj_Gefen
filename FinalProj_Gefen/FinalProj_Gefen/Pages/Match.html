@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="../Scripts/jquery-3.4.1.min.js"></script>
+	<script src="../Scripts/ajaxCallsWithKey.js"></script>
+	<script src="../Scripts/ajaxCalls.js"></script>
+	<style>
+		*{
+			text-align:center;
+
+		}
+	</style>
+	<script>
+
+		$(document).ready(function () {
+			$("#readBTN").click(readCity);
+		});
+		function readCity() {
+			let city = $("#city1").val();
+			let api = "../api/Dogs?City=" + city;
+			ajaxCall("GET", api, "", getSuccess, getError)
+		}
+
+
+		function getSuccess(city) {
+			//let str = '';
+			var myJSON= JSON.stringify(city);
+			var myObj = JSON.parse(myJSON);
+			var images = '';
+			for (var i = 0; i < myJSON.length; i++) {
+
+				images += '<img src="' + myJSON[i]['image_path'] + myJSON[i]['image_nm'] + '" />';
+			}
+			
+			document.getElementById('ph').innerHTML = myJSON;
+			//document.getElementById("ph").innerHTML = myJSON;
+
+		}
+
+		function getError(err) {
+			console.log(err);
+		}
+		
+	</script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>dogs from </td>
+			
+			<td><input type="text" id="city1" /></td>
+			<td><button id="readBTN">Show Dogs</button></td>
+		</tr>
+	</table>
+	
+
+	<div id="ph">
+
+	</div>
+</body>
+</html>

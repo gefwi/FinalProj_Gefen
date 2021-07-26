@@ -10,47 +10,54 @@ namespace FinalProj_Gefen.Models
     {
         string breed;
         string name;
-        double price;
+        int age;
+        string image;
+        string city;
         int id;
-
-    
-        public Dogs() { }
-
-        public Dogs(string breed, string name, double price, int id)
-        {
-            Breed = breed;
-            Name = name;
-            Price = price;
-            Id = id;
-        }
 
         public string Breed { get => breed; set => breed = value; }
         public string Name { get => name; set => name = value; }
-        public double Price { get => price; set => price = value; }
+        public int Age { get => age; set => age = value; }
         public int Id { get => id; set => id = value; }
+        public string Image { get => image; set => image = value; }
+        public string City { get => city; set => city = value; }
 
+        //double price;
+
+        public Dogs() { }
+
+        public Dogs(string breed, string name, int age, int id, string image, string city)
+        {
+            Breed = breed;
+            Name = name;
+            Age = age;            
+            Image = image;
+            City = city;
+            Id = id;
+        }
+
+     
         public void Insert()
         {
             DBServices dbs = new DBServices();
             dbs.Insert(this);
         }
 
-        // TODO: Add a Delete Method
-        public int Delete(int id)
+        //public List<Dogs> Read()
+        //{
+        //    DBServices dbs = new DBServices();
+
+        //    return dbs.Read();
+        //}
+
+        public List<Dogs> getByCity(string city)
         {
             DBServices dbs = new DBServices();
-            return dbs.Delete(id);
-        }
-
-        public List<Dogs> getByMaxPrice(double maxPrice)
-        {
-
-            DBServices dbs = new DBServices();
-            List<Dogs> fList = dbs.getByMaxPrice(maxPrice);
+            List<Dogs> fList = dbs.getByCity(city);
             return fList;
 
         }
-
+       
     }
 }
 

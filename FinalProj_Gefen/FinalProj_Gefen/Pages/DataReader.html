@@ -6,48 +6,91 @@
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
     <script src="../Scripts/ajaxCallsWithKey.js"></script>
+    <style>
+		input[type=text], select {
+			width: 100%;
+			padding: 12px 20px;
+			margin: 8px 0;
+			display: inline-block;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
 
+		input[type=submit] {
+			width: 100%;
+			background-color: #4CAF50;
+			color: white;
+			padding: 14px 20px;
+			margin: 8px 0;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+			input[type=submit]:hover {
+				background-color: #45a049;
+			}
+
+		div {
+			border-radius: 5px;
+			background-color: #f2f2f2;
+			padding: 20px;
+		}
+		.button {
+			width: 100%;
+			background-color: lightgray; /* Green */
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			-webkit-transition-duration: 0.4s; /* Safari */
+			transition-duration: 0.4s;
+		}
+
+		.button2:hover {
+			box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+		}
+    </style>
     <script>
 
         // A $( document ).ready() block.
         $(document).ready(function () {
 
             $("#postBTN").click(postFlights);
-            $("#deleteBTN").click(deleteFlight);
-            $("#readBTN").click(readFlightsCheaperThan);
+        
         });
 
-        function readFlightsCheaperThan() {
-            let maxPrice = $("#maxPriceTB").val();
-            let api = "../api/Dogs?maxPrice=" + maxPrice;
-            ajaxCall("GET", api, "", getSuccess, getError)
-        }
+    
 
-
-        function getSuccess(flights) {
-            console.log(flights);
-        }
-
-        function getError(err) {
-            console.log(err);
-        }
 
 
         function postFlights() {
-            console.log("in postStudent");
+            console.log("in post");
             // get the values from the input fields
-            let _from = $("#fromTB").val();
-            let _to = $("#toTB").val();
-            let _price = $("#priceTB").val();
-        //    let _id = $("#idTB").val();
+            let _breed = $("#BreedTB").val();
+            let _name = $("#NameTB").val();
+			let _age = $("#AgeTB").val();
+			let _image = $("#ImageTB").val();
+			let _city = $("#CityTB").val();
+            let _id = $("#idTB").val();
 
-            let flight = { // Note that the field names must match the C# class properties
-                Breed: _from,
-                Name: _to,
-                Price: _price
+            let dog = { // Note that the field names must match the C# class properties
+				Breed: _breed,
+				Name: _name,
+                Age: _age,
+                Image: _image,
+                City: _city,
+                Id: _id
             }
 
-            ajaxCall("POST", "../api/Dogs", JSON.stringify(flight), postSuccess, postError)
+
+            ajaxCall("POST", "../api/Dogs", JSON.stringify(dog), postSuccess, postError)
 
         }
 
@@ -60,61 +103,40 @@
             console.log(err.responseText)
         }
 
-        function deleteFlight() {
-            let id = $("#idTB").val();
-            let url = "../api/Dogs/" + id;
-            ajaxCall("DELETE", url, "", deleteSuccess, deleteError);
-        }
-
-        function deleteSuccess(data) {
-            console.log(data);
-        }
-
-        function deleteError(err) {
-            console.log(err);
-        }
-
-
+    
     </script>
 
 </head>
 <body>
+   
+    <div>
+        <form action="/action_page.php">
+            <label for="BreedTB">Breed</label>
+            <input type="text" id="BreedTB" name="Breed" placeholder="Your dog's breed..">
 
-    <h3>Flight Class Ex</h3>
+            <label for="NameTB">Name</label>
+            <input type="text" id="NameTB" name="name" placeholder="Your dog's name..">
 
-    <table>
+            <label for="AgeTB">Age</label>
+            <input type="number" id="AgeTB" name="age" placeholder="Your dog's age..">
+            <br />
+            <br />
+            <label for="CityTB">City</label>
+            <input type="text" id="CityTB" name="city" placeholder="Your location..">
 
-        <tr>
-            <td>Breed:</td>
-            <td><input type="text" id="fromTB" /></td>
-        </tr>
-        <tr>
-            <td>name</td>
-            <td><input type="text" id="toTB" /></td>
-        </tr>
-        <tr>
-            <td>price</td>
-            <td><input type="number" id="priceTB" /></td>
-        </tr>
+            <label for="idTB">Id</label>
+            <input type="number" id="idTB" name="id" placeholder="select an id..">
 
-        <tr>
-            <td><button id="postBTN">POST</button></td>
-        </tr>
+            <label for="ImageTB">Image</label>
+            <input type="file" id="ImageTB" name="image" placeholder="Your dog's pic..">
 
-        <tr>
-            <td>id: </td>
-            <td><input type="number" id="idTB" /></td>
-            <td><button id="deleteBTN">Delete by Id</button></td>
-        </tr>
-        <tr>
-            <td>read flights cheaper than: </td>
-            <td><input type="number" id="maxPriceTB" /></td>
-            <td><button id="readBTN">Read</button></td>
-        </tr>
-    </table>
-
-    <div id="ph">
-
+            <input type="submit" id="postBTN" value="Submit">
+            <button class="button button2"> <a href="Match.html">Find a Match for your Furry Friend</a></button>
+            <button class="button button2">
+                <a href="Breed.html">Search Dogs By Breed</a>
+            </button>
+           
+        </form>
     </div>
 
 

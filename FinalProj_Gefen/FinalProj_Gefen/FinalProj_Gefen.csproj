@@ -176,6 +176,7 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\Breed.html" />
     <Content Include="Pages\DataReader.html" />
+    <Content Include="Pages\Match.html" />
     <Content Include="Scripts\ajaxCalls.js" />
     <Content Include="Scripts\ajaxCallsWithKey.js" />
     <Content Include="Scripts\bootstrap.js" />

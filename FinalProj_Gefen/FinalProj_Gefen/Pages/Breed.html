@@ -7,11 +7,10 @@
     <script src="../Scripts/ajaxCallsWithKey.js"></script>
     <link href="../StyleSheet_page1.css" rel="stylesheet" />
     <style>
-   
-        *{
-            text-align:center;
-     
-        }
+	
+		* {
+			text-align: center;
+		}
         #search {
             border-color: #4CAF50;         
             color: green;
@@ -246,19 +245,6 @@
 
 
         function search() {
-			//let breed = $("#breed").val();
-   //      //   let cuisines = $("#cuisines").val();
-			////let api = "https://developers.zomato.com/api/v2.1/search?entity_id=" + city + "&entity_type=city&cuisiness=" + cuisines;
-
-			////const text = '["Ford", "BMW", "Audi", "Fiat"]';
-			////const myArr = JSON.parse(text);
-
-   //         let api = "https://dog.ceo/api/breed/" + breed + "/images/random/search?entity_id=" + breed;
-			
-   //         ajaxCall("GET", api, "", successCB1, errorCB1)
-			//console.log(breed);
-   //         //console.log(cuisines);
-
 			const BREEDS_URL = 'https://dog.ceo/api/breeds/list/all';
 
 			const select = document.querySelector('.breeds');
@@ -312,33 +298,41 @@
 
 </head>
 <body>
-    <header>
-        <h1>Dog Viewer</h1>
+	<header>
+		<h1>Dogs By Breed</h1>
 
-    </header>
+	</header>
 
-    <br />
-    <br />
-    <br />
+	<br />
+	<br />
+	<br />
+	<div id="div1">
+		<button id="search"> Start looking for dog Breeds</button>
+		<br />
+		
 
-    <button id="search"> Start looking for dogs</button>
-    <select class="breeds"></select>
-    <br />
-    <div id="data"></div>
-    <main>
-        <div class="container">
+		<select class="breeds"></select>
 
-        </div>
-        <div class="img-container">
+	</div>
+	<br />
+	<div id="data"></div>
+	<main>
+		<div class="container">
+
+		</div>
+		<div class="img-container">
 			<div class="container">
 				<div class="spinner">
 					🐶
 				</div>
-				<img src="https://t1.ea.ltmcdn.com/en/razas/4/6/1/img_164_bullmastiff_0_orig.jpg" 
+				<img src="https://t1.ea.ltmcdn.com/en/razas/4/6/1/img_164_bullmastiff_0_orig.jpg"
 					 class="dog-img show"
 					 alt="friendly and intimate - man's best friend" />
 			</div>
-        </div>
-    </main>
+			<button>
+				<a href="DataReader.html">Submit Your Dog Here</a>
+			</button>
+		</div>
+	</main>
 </body>
 </html>

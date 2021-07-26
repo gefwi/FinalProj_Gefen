@@ -14,26 +14,25 @@ namespace FinalProj_Gefen.Models.DAL
       
             public SqlDataAdapter da;
             public DataTable dt;
-        
-
-            //--------------------------------------------------------------------------------------------------
-            // This method creates a connection to the database according to the connectionString name in the web.config 
-            //--------------------------------------------------------------------------------------------------
-            public SqlConnection connect(String conString)
-            {
-
-                // read the connection string from the configuration file
-                string cStr = WebConfigurationManager.ConnectionStrings[conString].ConnectionString;
-                SqlConnection con = new SqlConnection(cStr);
-                con.Open();
-                return con;
-            }
 
 
-            //---------------------------------------------------------------------------------
-            // Create the SqlCommand
-            //---------------------------------------------------------------------------------
-            private SqlCommand CreateCommand(String CommandSTR, SqlConnection con)
+        //--------------------------------------------------------------------------------------------------
+        // This method creates a connection to the database according to the connectionString name in the web.config 
+        //--------------------------------------------------------------------------------------------------
+        public SqlConnection connect(String conString)
+        {
+
+            // read the connection string from the configuration file
+            string cStr = WebConfigurationManager.ConnectionStrings[conString].ConnectionString;
+            SqlConnection con = new SqlConnection(cStr);
+            con.Open();
+            return con;
+        }
+
+        //---------------------------------------------------------------------------------
+        // Create the SqlCommand
+        //---------------------------------------------------------------------------------
+        private SqlCommand CreateCommand(String CommandSTR, SqlConnection con)
             {
 
                 SqlCommand cmd = new SqlCommand(); // create the command object
@@ -106,8 +105,8 @@ namespace FinalProj_Gefen.Models.DAL
 
                 StringBuilder sb = new StringBuilder();
                 // use a string builder to create the dynamic string
-                sb.AppendFormat("Values('{0}', '{1}','{2}')", dog.Breed, dog.Name, dog.Price);
-                String prefix = "INSERT INTO BreedsTB" + "([BREED], [NAME], PRICE) ";
+                sb.AppendFormat("Values('{0}', '{1}','{2}', '{3}','{4}','{5}')", dog.Breed, dog.Name, dog.Age, dog.Image, dog.City, dog.Id);
+                String prefix = "INSERT INTO DogsTB" + "([BREED], [NAME], AGE, IMAGE, CITY, ID)";
                 command = prefix + sb.ToString();
 
                 return command;
@@ -118,7 +117,7 @@ namespace FinalProj_Gefen.Models.DAL
             // Read flights using a DataReader
             //--------------------------------------------------------------------
 
-            public List<Dogs> getByMaxPrice(double price)
+            public List<Dogs> getByCity(string city)
             {
                 SqlConnection con = null;
                 List<Dogs> flightList = new List<Dogs>();
@@ -127,7 +126,7 @@ namespace FinalProj_Gefen.Models.DAL
                 {
                     con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
 
-                    String selectSTR = "SELECT * FROM BreedsTB where price <= " + price.ToString();
+                    String selectSTR = "SELECT * FROM DogsTB where DogsTB.CITY=" +"'"+city+"'";
                     SqlCommand cmd = new SqlCommand(selectSTR, con);
 
                     // get a reader
@@ -138,10 +137,13 @@ namespace FinalProj_Gefen.Models.DAL
                         Dogs f = new Dogs();
 
                         f.Breed = (string)dr["BREED"];
-                        f.Name = (string)dr["NAME"];
-                        f.Price = Convert.ToDouble(dr["PRICE"]);
-                       
-                        flightList.Add(f);
+                        f.Name = (string)dr["NAME"];                      
+                        f.Age = Convert.ToInt32(dr["AGE"]);
+                    f.Image = (string)dr["IMAGE"];
+                    f.City = (string)dr["CITY"];
+                    f.Id = Convert.ToInt32(dr["ID"]);
+
+                    flightList.Add(f);
                     }
 
                     return flightList;

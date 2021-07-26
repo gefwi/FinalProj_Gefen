@@ -21,26 +21,23 @@ namespace FinalProj_Gefen.Controllers
             return null;
         }
 
-        public List<Dogs> Get(string breed, string name)
+        public List<Dogs> Get(string breed, string name,string image, string city)
         {
             return null;
         }
 
         // GET api/<controller>/5
-        public List<Dogs> Get(double maxPrice)
+        public List<Dogs> Get(string city)
         {
             Dogs f = new Dogs();
-            return f.getByMaxPrice(maxPrice);
-            // DataReader class ex - Add Your code Here
-
-
+            return f.getByCity(city);
         }
 
         // POST api/<controller>
         public void Post([FromBody] Dogs dog)
         {
-            dog.Insert();
-            //return flight;
+           dog.Insert();
+       
         }
 
         // PUT api/<controller>/5
@@ -48,24 +45,5 @@ namespace FinalProj_Gefen.Controllers
         {
         }
 
-        // DELETE api/<controller>/5
-        public HttpResponseMessage Delete(int id)
-        {
-            // TODO:
-            // create a new object of type Flight
-            Dogs f = new Dogs();
-            int num = f.Delete(id);
-            if (num == 0)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "id: " + id + " does not exist");
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, "sababa");
-            }
-            // call the delete method of flight
-            // return a message object
-
         }
     }
-}
